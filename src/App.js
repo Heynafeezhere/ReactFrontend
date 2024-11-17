@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -12,7 +15,7 @@ function App() {
         <div className="container">
           {/* Latest Products */}
           <h3 className='mb-4'>Latest Products
-            <a href='#' className='float-end btn btn-dark'>View All Products <i class="fa-solid fa-arrow-right"></i></a>
+            <a href='#' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></a>
           </h3>
           <div className="row mb-4">
             {/* Product Box */}
@@ -156,7 +159,7 @@ function App() {
 
           {/* Popular Categories */}
           <h3 className='mb-4'>Popular Categories
-            <a href='#' className='float-end btn btn-dark'>View All Categories <i class="fa-solid fa-arrow-right"></i></a>
+            <a href='#' className='float-end btn btn-dark'>View All Categories <i className="fa-solid fa-arrow-right"></i></a>
           </h3>
           <div className="row mb-4">
             {/* Categories Box */}
@@ -216,7 +219,7 @@ function App() {
 
           {/* Popular Products */}
           <h3 className='mb-4'>Popular Products
-            <a href='#' className='float-end btn btn-dark'>View All Products <i class="fa-solid fa-arrow-right"></i></a>
+            <a href='#' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></a>
           </h3>
           <div className="row mb-4">
             {/* Product Box */}
@@ -292,7 +295,7 @@ function App() {
 
           {/* Popular Sellers */}
           <h3 className='mb-4'>Popular Sellers
-            <a href='#' className='float-end btn btn-dark'>View All Sellers <i class="fa-solid fa-arrow-right"></i></a>
+            <a href='#' className='float-end btn btn-dark'>View All Sellers <i className="fa-solid fa-arrow-right"></i></a>
           </h3>
           <div className="row mb-4">
             {/* Seller Box */}
@@ -349,6 +352,68 @@ function App() {
             {/* Seller Box End*/}
           </div>
           {/* Popular Sellers End*/}
+
+          {/* Rating and Reviews */}
+          <div id="carouselExampleIndicators" className="carousel slide mt-4 border bg-dark text-white p-5" data-bs-ride="true">
+            <div className="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <figure className="text-center">
+                  <blockquote className="blockquote">
+                    <p>A well-known quote, contained in a blockquote element.</p>
+                  </blockquote>
+                  <figcaption className="blockquote-footer">
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star-half-stroke text-warning'></i>
+                    <cite title="Source Title">Customer Name</cite>
+                  </figcaption>
+                </figure>
+              </div>
+              <div className="carousel-item">
+                <figure className="text-center">
+                  <blockquote className="blockquote">
+                    <p>A well-known quote, contained in a blockquote element.</p>
+                  </blockquote>
+                  <figcaption className="blockquote-footer">
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star-half-stroke text-warning'></i>
+                    <cite title="Source Title">Customer Name</cite>
+                  </figcaption>
+                </figure>
+              </div>
+              <div className="carousel-item">
+                <figure className="text-center">
+                  <blockquote className="blockquote">
+                    <p>A well-known quote, contained in a blockquote element.</p>
+                  </blockquote>
+                  <figcaption className="blockquote-footer">
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star text-warning'></i>
+                    <i className='fa fa-star-half-stroke text-warning'></i>
+                    <cite title="Source Title">Customer Name</cite>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
+          {/* Rating and Reviews ENd*/}
+
+          <Footer />      
         </div>
       </main>
     </>
