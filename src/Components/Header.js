@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function Header() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -9,10 +10,10 @@ function Header() {
                     <a className="navbar-brand" href="#">ThinkUni</a>
                     <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only"></span></a>
+                            <Link className="nav-link" to="/">Home </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Categories</a>
+                            <Link className="nav-link" to="/categories">Categories</Link>
                         </li>
                     </ul>
                 </div>
