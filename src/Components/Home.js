@@ -8,7 +8,7 @@ function Home() {
             <div className="container">
                 {/* Latest Products */}
                 <h3 className='mb-4'>Latest Products
-                    <a href='#' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></a>
+                    <Link to='/allproducts' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></Link>
                 </h3>
                 <div className="row mb-4">
                     <SingleProduct title='Product title - 1' price='Rs. 500' />
