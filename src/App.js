@@ -11,10 +11,13 @@ import CategoryProducts from './Components/CategoryProducts';
 import ProductDetail from './Components/ProductDetail';
 import AllProducts from './Components/AllProducts';
 import Checkout from './Components/Checkout';
+import OrderSuccess from './Components/OrderSuccess';
+import OrderFailure from './Components/OrderFailure';
 
 import Register from './Components/Customer/Register';
 import Login from './Components/Customer/Login';
 import Dashboard from './Components/Customer/Dashboard';
+import Orders from './Components/Customer/Orders';
 
 function App() {
   return (
@@ -30,10 +33,13 @@ function App() {
         <Route path='/category/:category_slug/:id' element={<CategoryProducts />} />
         
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/orders/success' element={<OrderSuccess />} />
+        <Route path='/orders/failure' element={<OrderFailure />} />
 
         <Route path='/customer/register' element={<Register />} />
         <Route path='/customer/login' element={<Login />} />
         <Route path='/customer/dashboard' element={<Dashboard />} />
+        <Route path='/customer/orders' element={<Orders />} />
         
       </Routes>
       <Footer />
