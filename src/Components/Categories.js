@@ -1,5 +1,5 @@
 import logo from '../logo.svg';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Categories() {
     return (
@@ -12,7 +12,7 @@ function Categories() {
                     <div className="card">
                         <img src={logo} className="card-img-top" alt="..." />
                         <div className="card-body">
-                            <h4 className="card-title"><Link to="/">Category title</Link></h4>
+                            <h4 className="card-title"><Link to="/category/fashion/1">Fashion</Link></h4>
                         </div>
                         <div className='card-footer'>
                             Product Downloads : 2546
@@ -115,6 +115,23 @@ function Categories() {
                 {/* Categories Box End*/}
             </div>
             {/*  Categories End*/}
+            <nav aria-label="Page navigation example">
+                <ul className="pagination">
+                    <li className="page-item">
+                        <a className="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li className="page-item"><a className="page-link" href="#">1</a></li>
+                    <li className="page-item"><a className="page-link" href="#">2</a></li>
+                    <li className="page-item"><a className="page-link" href="#">3</a></li>
+                    <li className="page-item">
+                        <a className="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </section>
     )
 }
