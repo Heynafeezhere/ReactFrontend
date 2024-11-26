@@ -1,8 +1,10 @@
 import React from 'react';  
 import { Routes,Route } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.css';
+
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
@@ -18,6 +20,9 @@ import Register from './Components/Customer/Register';
 import Login from './Components/Customer/Login';
 import Dashboard from './Components/Customer/Dashboard';
 import Orders from './Components/Customer/Orders';
+import WishList from './Components/Customer/Wishlist';
+import Profile from './Components/Customer/Profile';
+import ChangePassword from './Components/Customer/ChangePassword';
 
 function App() {
   return (
@@ -40,6 +45,9 @@ function App() {
         <Route path='/customer/login' element={<Login />} />
         <Route path='/customer/dashboard' element={<Dashboard />} />
         <Route path='/customer/orders' element={<Orders />} />
+        <Route path='/customer/wishlist' element={<WishList />} />
+        <Route path='/customer/profile' element={<Profile />} />
+        <Route path='/customer/change-password' element={<ChangePassword />} />
         
       </Routes>
       <Footer />
