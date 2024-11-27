@@ -27,12 +27,17 @@ import ChangePassword from './Components/Customer/ChangePassword';
 import AddressList from './Components/Customer/AddressList';
 import AddAddress from './Components/Customer/AddAddress';
 
-//seller panel
-import SellerRegister from './Components/Seller/SellerRegister';
-import SellerLogin from './Components/Seller/SellerLogin';
-import SellerDashboard from './Components/Seller/SellerDashboard';
-import SellerProducts from './Components/Seller/SellerProducts';
-import AddProduct from './Components/Seller/AddProduct';
+//vendor panel
+import VendorRegister from './Components/Vendor/VendorRegister';
+import VendorLogin from './Components/Vendor/VendorLogin';
+import VendorDashboard from './Components/Vendor/VendorDashboard';
+import VendorProducts from './Components/Vendor/VendorProducts';
+import AddProduct from './Components/Vendor/AddProduct';
+import VendorOrders from './Components/Vendor/VendorOrders';
+import CustomerList from './Components/Vendor/CustomerList';
+import Reports from './Components/Vendor/Reports';
+import VendorProfile from './Components/Vendor/VendorProfile';
+import VendorChangePassword from './Components/Vendor/VendorChangePassword';
 
 function App() {
   return (
@@ -62,12 +67,17 @@ function App() {
         <Route path='/customer/addresses' element={<AddressList />} />
         <Route path='/customer/add-address' element={<AddAddress />} />
         
-        {/* seller panel */}
-        <Route path='/seller/dashboard' element={<SellerDashboard />} />
-        <Route path='/seller/register' element={<SellerRegister />} />
-        <Route path='/seller/login' element={<SellerLogin />} />
-        <Route path='/seller/products' element={<SellerProducts />} />
-        <Route path='/seller/add-product' element={<AddProduct />} />
+        {/* vendor panel */}
+        <Route path='/vendor/dashboard' element={<VendorDashboard />} />
+        <Route path='/vendor/register' element={<VendorRegister />} />
+        <Route path='/vendor/login' element={<VendorLogin />} />
+        <Route path='/vendor/products' element={<VendorProducts />} />
+        <Route path='/vendor/add-product' element={<AddProduct />} />
+        <Route path='/vendor/orders' element={<VendorOrders />} />
+        <Route path='/vendor/customers' element={<CustomerList />} />
+        <Route path='/vendor/reports' element={<Reports />} />
+        <Route path='/vendor/profile' element={<VendorProfile />} />
+        <Route path='/vendor/change-password' element={<VendorChangePassword />} />
         
 
       </Routes>

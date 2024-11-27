@@ -1,11 +1,11 @@
-import SellerSidebar from './SellerSidebar';
+import VendorSidebar from './VendorSidebar';
 
 function AddProduct() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
                 <div className='col-md-3 col-12 mb-2'>
-                    <SellerSidebar />
+                    <VendorSidebar />
                 </div>
                 <div className='col-md-9 col-12 mb-1'>
                     <div className='card'>

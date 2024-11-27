@@ -1,17 +1,17 @@
-import SellerSidebar from './SellerSidebar';
+import VendorSidebar from './VendorSidebar';
 import logo from '../../logo.svg';
 import { Link } from 'react-router-dom';
-function SellerProducts() {
+function VendorProducts() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
                 <div className='col-md-3 col-12 mb-2'>
-                    <SellerSidebar />
+                    <VendorSidebar />
                 </div>
                 <div className='col-md-9 col-12 mb-2'>
                     <div className='row'>
                         <div className='col-12'>
-                            <Link className='btn btn-outline-success float-end mb-2' to='/seller/add-product'>
+                            <Link className='btn btn-outline-success float-end mb-2' to='/vendor/add-product'>
                                 <i className='fa fa-plus' />
                                 Add Product
                             </Link>
@@ -58,4 +58,4 @@ function SellerProducts() {
     )
 }
 
-export default SellerProducts;
+export default VendorProducts;

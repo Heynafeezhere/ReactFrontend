@@ -1,11 +1,11 @@
-function SellerLogin() {
+function VendorLogin() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
                 <div className="col-md-8 col-12 offset-2">
                     <div className='card'>
                         <div className='card-header'>
-                            <h4>Customer Registration</h4>
+                            <h4>Vendor Login</h4>
                         </div>
                         <div className='card-body'>
                             <form>
@@ -28,4 +28,4 @@ function SellerLogin() {
     )
 }
 
-export default SellerLogin;
+export default VendorLogin;

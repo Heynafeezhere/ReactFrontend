@@ -1,16 +1,11 @@
-import Sidebar from './Sidebar';
-
-function Profile() {
+function VendorRegister() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
-                <div className='col-md-3 col-12 mb-2'>
-                    <Sidebar />
-                </div>
-                <div className='col-md-9 col-12 mb-2'>
+                <div className="col-md-8 col-12 offset-2">
                     <div className='card'>
                         <div className='card-header'>
-                            <h4>Update Customer Profile</h4>
+                            <h4>Vendor Registration</h4>
                         </div>
                         <div className='card-body'>
                             <form>
@@ -25,21 +20,17 @@ function Profile() {
                                 <div className="mb-3">
                                     <label for="userName" className="form-label"><h5>Username</h5></label>
                                     <input type="text" className="form-control" id="userName" />
-                                </div>
+                                </div>  
                                 <div className="mb-3">
                                     <label for="email" className="form-label"><h5>Email</h5></label>
                                     <input type="email" className="form-control" id="email" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="profilePicture" className="form-label">
-                                        <h5>Upload Profile Picture</h5>
-                                    </label>
-                                    <input type="file" className="form-control" id="profilePicture" accept="image/*" />
+                                    <label for="password" className="form-label"><h5>Password</h5></label>
+                                    <input type="password" className="form-control" id="password" />
                                 </div>
-                                <div className="mt-5">
-                                    <button type="submit" className="btn btn-primary">Submit</button>
-                                    <button type="reset" className="btn btn-danger ms-2">Reset</button>
-                                </div>
+                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="reset" className="btn btn-danger ms-2">Reset</button>
                             </form>
                         </div>
                     </div>
@@ -49,4 +40,4 @@ function Profile() {
     )
 }
 
-export default Profile;
+export default VendorRegister;

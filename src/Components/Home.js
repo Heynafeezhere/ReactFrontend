@@ -82,65 +82,65 @@ function Home() {
                 </div>
                 {/* popular Categories End*/}
 
-                {/* Popular Sellers */}
-                <h3 className='mb-4'>Popular Sellers
-                    <a href='#' className='float-end btn btn-dark'>View All Sellers <i className="fa-solid fa-arrow-right"></i></a>
+                {/* Popular Vendors */}
+                <h3 className='mb-4'>Popular Vendors
+                    <a href='#' className='float-end btn btn-dark'>View All Vendors <i className="fa-solid fa-arrow-right"></i></a>
                 </h3>
                 <div className="row mb-4">
-                    {/* Seller Box */}
+                    {/* Vendor Box */}
                     <div className="col-12 col-md-3 mb-4">
                         <div className="card">
                             <img src={logo} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h4 className="card-title">Seller title</h4>
+                                <h4 className="card-title">Vendor title</h4>
                             </div>
                             <div className='card-footer'>
                                 Categories : <a href='#'>React</a>, <a href='#'>Django</a>
                             </div>
                         </div>
                     </div>
-                    {/* Seller Box End*/}
-                    {/* Seller Box */}
+                    {/* Vendor Box End*/}
+                    {/* Vendor Box */}
                     <div className="col-12 col-md-3 mb-4">
                         <div className="card">
                             <img src={logo} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h4 className="card-title">Seller title</h4>
+                                <h4 className="card-title">Vendor title</h4>
                             </div>
                             <div className='card-footer'>
                                 Categories : <a href='#'>React</a>, <a href='#'>Django</a>
                             </div>
                         </div>
                     </div>
-                    {/* Seller Box End*/}
-                    {/* Seller Box */}
+                    {/* Vendor Box End*/}
+                    {/* Vendor Box */}
                     <div className="col-12 col-md-3 mb-4">
                         <div className="card">
                             <img src={logo} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h4 className="card-title">Seller title</h4>
+                                <h4 className="card-title">Vendor title</h4>
                             </div>
                             <div className='card-footer'>
                                 Categories : <a href='#'>React</a>, <a href='#'>Django</a>
                             </div>
                         </div>
                     </div>
-                    {/* Seller Box End*/}
-                    {/* Seller Box */}
+                    {/* Vendor Box End*/}
+                    {/* Vendor Box */}
                     <div className="col-12 col-md-3 mb-4">
                         <div className="card">
                             <img src={logo} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h4 className="card-title">Seller title</h4>
+                                <h4 className="card-title">Vendor title</h4>
                             </div>
                             <div className='card-footer'>
                                 Categories : <a href='#'>React</a>, <a href='#'>Django</a>
                             </div>
                         </div>
                     </div>
-                    {/* Seller Box End*/}
+                    {/* Vendor Box End*/}
                 </div>
-                {/* Popular Sellers End*/}
+                {/* Popular Vendors End*/}
 
                 {/* Rating and Reviews */}
                 <div id="carouselExampleIndicators" className="carousel slide mt-4 border bg-dark text-white p-5" data-bs-ride="true">

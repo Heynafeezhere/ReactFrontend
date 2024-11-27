@@ -5,7 +5,7 @@ function Login() {
                 <div className="col-md-8 col-12 offset-2">
                     <div className='card'>
                         <div className='card-header'>
-                            <h4>Customer Registration</h4>
+                            <h4>Customer Login</h4>
                         </div>
                         <div className='card-body'>
                             <form>

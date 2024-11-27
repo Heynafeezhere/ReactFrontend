@@ -1,11 +1,11 @@
-import Sidebar from './Sidebar';
+import VendorSidebar from './VendorSidebar';
 
-function ChangePassword() {
+function VendorChangePassword() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
                 <div className='col-md-3 col-12 mb-2'>
-                    <Sidebar />
+                    <VendorSidebar />
                 </div>
                 <div className='col-md-9 col-12 mb-2'>
                     <div className='card'>
@@ -39,4 +39,4 @@ function ChangePassword() {
     )
 }
 
-export default ChangePassword;
+export default VendorChangePassword;
