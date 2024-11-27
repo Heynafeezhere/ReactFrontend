@@ -1,4 +1,4 @@
-function Register() {
+function SellerRegister() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
@@ -40,4 +40,4 @@ function Register() {
     )
 }
 
-export default Register;
+export default SellerRegister;

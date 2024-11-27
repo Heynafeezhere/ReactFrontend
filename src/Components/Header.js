@@ -16,16 +16,31 @@ function Header() {
                             <Link className="nav-link" to="/categories">Categories</Link>
                         </li>
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <ul className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 My Account
-                            </a>
+                            </ul>
                             <ul className="dropdown-menu">
                                 <li><Link className="dropdown-item" to='/customer/register'>Register</Link></li>
                                 <li><Link className="dropdown-item" to='/customer/login'>Login</Link></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><Link className="dropdown-item" to="/customer/dashboard">Dashboard</Link></li>
-                                <li><Link className="dropdown-item" href="#">Sign out</Link></li>
+                                <li><Link className="dropdown-item" to="/customer/logout">Sign out</Link></li>
                             </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <ul className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Seller panel
+                            </ul>
+                            <ul className="dropdown-menu">
+                                <li><Link className="dropdown-item" to='/seller/register'>Register</Link></li>
+                                <li><Link className="dropdown-item" to='/seller/login'>Login</Link></li>
+                                <li><hr className="dropdown-divider"/></li>
+                                <li><Link className="dropdown-item" to="/seller/dashboard">Dashboard</Link></li>
+                                <li><Link className="dropdown-item" to='/seller/logout'>Sign out</Link></li>
+                            </ul>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/checkout">Orders<span>(4)</span></Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/checkout">Cart<span>(4)</span></Link>

@@ -1,4 +1,4 @@
-function Register() {
+function SellerLogin() {
     return (
         <section className="container mt-4">
             <div className="row mt-3">
@@ -10,19 +10,7 @@ function Register() {
                         <div className='card-body'>
                             <form>
                                 <div className="mb-3">
-                                    <label for="firstName" className="form-label"><h5>First Name</h5></label>
-                                    <input type="text" className="form-control" id="firstName" />
-                                </div>
-                                <div className="mb-3">
-                                    <label for="lastName" className="form-label"><h5>Last Name</h5></label>
-                                    <input type="text" className="form-control" id="lastName" />
-                                </div>
-                                <div className="mb-3">
-                                    <label for="userName" className="form-label"><h5>Username</h5></label>
-                                    <input type="text" className="form-control" id="userName" />
-                                </div>  
-                                <div className="mb-3">
-                                    <label for="email" className="form-label"><h5>Email</h5></label>
+                                    <label for="email" className="form-label"><h5>Username/Email</h5></label>
                                     <input type="email" className="form-control" id="email" />
                                 </div>
                                 <div className="mb-3">
@@ -40,4 +28,4 @@ function Register() {
     )
 }
 
-export default Register;
+export default SellerLogin;
