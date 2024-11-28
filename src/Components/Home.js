@@ -1,5 +1,5 @@
 import logo from '../logo.svg';
-import SingleProduct from './SingleProduct';
+import SingleProduct from './Products/SingleProduct';
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -18,11 +18,11 @@ function Home() {
             <div className="container">
                 {/* Latest Products */}
                 <h3 className='mb-4'>Latest Products
-                    <Link to='/allproducts' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></Link>
+                    <Link to='/products' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></Link>
                 </h3>
                 <div className="row mb-4">
                     {
-                        products.map((product) => <SingleProduct product={product} />)
+                        products.map((product) => <SingleProduct key={product.id} product={product} />)
                     }
                 </div>
                 {/* Popular Products End*/}

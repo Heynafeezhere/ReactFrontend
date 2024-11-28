@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useParams,Link } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 
-function AllProducts() {
+function TaggedProducts() {
     const baseurl = "http://127.0.0.1:8000/api/products/";
     const [products, setProducts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [pageSize, setPageSize] = useState(1); // Default page size (adjust based on API response)
+    const pageSize = 1;
+    const { tag } = useParams();
 
     const location = useLocation();
 
@@ -14,10 +15,11 @@ function AllProducts() {
     const query = new URLSearchParams(location.search);
     var currentPage = parseInt(query.get("page")) || 1; // Default to page 1 if not present
     
+
     if(currentPage>totalCount/pageSize) currentPage = 1;
     
     useEffect(() => {
-        fetchData(`${baseurl}?page=${currentPage}`);
+        fetchData(`${baseurl}${tag}?page=${currentPage}`);
     }, [currentPage]);
 
     function fetchData(url) {
@@ -26,14 +28,11 @@ function AllProducts() {
             .then((data) => {
                 setProducts(data.results);
                 setTotalCount(data.count);
-                if (data.page_size) setPageSize(data.page_size); // Optional if the API provides `page_size`
             });
     }
 
     // Calculate total pages
     const totalPages = Math.ceil(totalCount / pageSize);
-
-
 
     const links = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -44,7 +43,7 @@ function AllProducts() {
             >
                 <Link
                     className="page-link"
-                    to={`/allproducts/?page=${i}`}
+                    to={`/products/${tag}?page=${i}`}
                 >
                     {i}
                 </Link>
@@ -54,7 +53,7 @@ function AllProducts() {
 
     return (
         <div className="container mt-4">
-            <h3 className="mb-4">All Products</h3>
+            <h3 className="mb-4">{tag} Products</h3>
             <div className="row mb-4">
                 {products.map((product) => (
                     <SingleProduct key={product.id} product={product} />
@@ -68,4 +67,4 @@ function AllProducts() {
     );
 }
 
-export default AllProducts;
+export default TaggedProducts;

@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 
-import logo from '../logo.svg';
+import logo from '../../logo.svg';
 function SingleProduct(props) {
     return (
         <div className="col-12 col-md-3 mb-4">
             <div className="card">
-                <Link to={`/product/${props.product.id}`}>
+                <Link to={`/product/${props.product.name}/${props.product.id}`}>
                     <img src={logo} className="card-img-top" alt="..." />
                 </Link>
                 <div className="card-body">
-                    <Link to={`/product/${props.product.id}`}>
+                    <Link to={`/product/${props.product.name}/${props.product.id}`}>
                         <h4 className="card-title">{props.product.name}</h4>
                     </Link>
                     <h5 className="card-title text-muted">Price(₹) : <span className='text-muted'>{props.product.price}</span></h5>

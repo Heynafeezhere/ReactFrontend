@@ -5,7 +5,7 @@ function ProductDetail() {
     const baseurl = "http://127.0.0.1:8000/api/product/";
     const [productData, setProductData] = useState(null);
     const [productImages, setProductImages] = useState([]);
-
+    const [productTags, setproductTags] = useState([]);
     const { product_id } = useParams();
 
     useEffect(() => {
@@ -19,6 +19,7 @@ function ProductDetail() {
             const data = await response.json();
             setProductData(data);
             setProductImages(data.product_images || []);
+            setproductTags(data.product_tags || []);
         } catch (error) {
             console.error("Error fetching product data:", error);
         }
@@ -26,6 +27,14 @@ function ProductDetail() {
 
     if (!productData) {
         return <div className="container mt-4">Loading...</div>;
+    }
+
+    const productTagsList = []
+    for (let i = 0; i < productTags.length; i++) {
+        let tag = productTags[i].trim()
+        productTagsList.push(
+            <Link key={i} to={`/products/${tag}`} className="badge bg-secondary text-white me-1">{tag}</Link>
+        )
     }
 
     return (
@@ -88,11 +97,7 @@ function ProductDetail() {
                     </p>
                     <div className="product-tags mt-4">
                         <h5>Tags</h5>
-                        {["T-shirt", "Shirt", "Trousers", "Pants"].map((tag, index) => (
-                            <Link key={index} to="#" className="badge bg-secondary text-white me-1">
-                                {tag}
-                            </Link>
-                        ))}
+                        {productTagsList}
                     </div>
                 </div>
             </div>

@@ -9,9 +9,10 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
 import Categories from './Components/Categories';
-import CategoryProducts from './Components/CategoryProducts';
-import ProductDetail from './Components/ProductDetail';
-import AllProducts from './Components/AllProducts';
+import CategoryProducts from './Components/Products/CategoryProducts';
+import ProductDetail from './Components/Products/ProductDetail';
+import AllProducts from './Components/Products/AllProducts';
+import TaggedProducts from './Components/Products/TaggedProducts';
 import Checkout from './Components/Checkout';
 import OrderSuccess from './Components/OrderSuccess';
 import OrderFailure from './Components/OrderFailure';
@@ -46,8 +47,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         
-        <Route path='/allproducts' element={<AllProducts />} />
-        <Route path='/product/:product_id' element={<ProductDetail />} />
+        <Route path='/products' element={<AllProducts />} />
+        <Route path='/products/:tag' element={<TaggedProducts />} />
+        <Route path='/product/:product_slug/:product_id' element={<ProductDetail />} />
         
         <Route path='/categories' element={<Categories />} />
         <Route path='/category/:category_slug/:category_id' element={<CategoryProducts />} />
