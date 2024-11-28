@@ -3,6 +3,16 @@ import SingleProduct from './SingleProduct';
 import { Link } from 'react-router-dom';
 
 function Home() {
+    const products = [
+        { 'id': 1, 'name': 'Product title - 1', 'price': 'Rs. 500' },
+        { 'id': 2, 'name': 'Product title - 2', 'price': 'Rs. 500' },
+        { 'id': 3, 'name': 'Product title - 3', 'price': 'Rs. 500' },
+        { 'id': 4, 'name': 'Product title - 4', 'price': 'Rs. 500' },
+        { 'id': 5, 'name': 'Product title - 5', 'price': 'Rs. 500' },
+        { 'id': 6, 'name': 'Product title - 6', 'price': 'Rs. 500' },
+        { 'id': 7, 'name': 'Product title - 7', 'price': 'Rs. 500' },
+        { 'id': 8, 'name': 'Product title - 8', 'price': 'Rs. 500' },
+    ]
     return (
         <main className='mt-4'>
             <div className="container">
@@ -11,14 +21,9 @@ function Home() {
                     <Link to='/allproducts' className='float-end btn btn-dark'>View All Products <i className="fa-solid fa-arrow-right"></i></Link>
                 </h3>
                 <div className="row mb-4">
-                    <SingleProduct title='Product title - 1' price='Rs. 500' />
-                    <SingleProduct title='Product title - 2' price='Rs. 500' />
-                    <SingleProduct title='Product title - 3' price='Rs. 500' />
-                    <SingleProduct title='Product title - 4' price='Rs. 500' />
-                    <SingleProduct title='Product title - 5' price='Rs. 500' />
-                    <SingleProduct title='Product title - 6' price='Rs. 500' />
-                    <SingleProduct title='Product title - 7' price='Rs. 500' />
-                    <SingleProduct title='Product title - 8' price='Rs. 500' />
+                    {
+                        products.map((product) => <SingleProduct product={product} />)
+                    }
                 </div>
                 {/* Popular Products End*/}
 
