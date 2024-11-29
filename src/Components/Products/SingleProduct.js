@@ -2,11 +2,17 @@ import { Link } from 'react-router-dom';
 
 import logo from '../../logo.svg';
 function SingleProduct(props) {
+    console.log(props.product.image);
     return (
         <div className="col-12 col-md-3 mb-4">
             <div className="card">
                 <Link to={`/product/${props.product.name}/${props.product.id}`}>
-                    <img src={logo} className="card-img-top" alt="..." />
+                {
+                    props.product.image ?
+                        <img src={props.product.image} className="card-img-top" alt="..." />
+                    :
+                        <img src={logo} className="card-img-top" alt="..." />
+                }
                 </Link>
                 <div className="card-body">
                     <Link to={`/product/${props.product.name}/${props.product.id}`}>

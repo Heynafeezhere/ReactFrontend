@@ -1,16 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import SingleProduct from './SingleProduct';
 
 function ProductDetail() {
     const baseurl = "http://127.0.0.1:8000/api/product/";
     const [productData, setProductData] = useState(null);
     const [productImages, setProductImages] = useState([]);
-    const [productTags, setproductTags] = useState([]);
+    const [productTags, setProductTags] = useState([]);
+    const [relatedProducts, setRelatedProducts] = useState([]);
     const { product_id } = useParams();
 
     useEffect(() => {
         fetchData(`${baseurl}${product_id}`);
     }, [product_id]); // Added product_id to dependencies
+
+    useEffect(() => {
+        fetchRelatedProducts(`${baseurl}related-products/${product_id}`);
+    }, [product_id]);
 
     const fetchData = async (url) => {
         try {
@@ -19,9 +25,20 @@ function ProductDetail() {
             const data = await response.json();
             setProductData(data);
             setProductImages(data.product_images || []);
-            setproductTags(data.product_tags || []);
+            setProductTags(data.product_tags || []);
         } catch (error) {
             console.error("Error fetching product data:", error);
+        }
+    };
+
+    const fetchRelatedProducts = async (relatedProductsUrl) => {
+        try {
+            const response = await fetch(relatedProductsUrl);
+            if (!response.ok) throw new Error("Failed to fetch related products");
+            const data = await response.json();
+            setRelatedProducts(data);
+        } catch (error) {
+            console.error("Error fetching related products:", error);
         }
     };
 
@@ -37,6 +54,14 @@ function ProductDetail() {
         )
     }
 
+    const chunkArray = (array, chunkSize) => {
+        const result = [];
+        for (let i = 0; i < array.length; i += chunkSize) {
+            result.push(array.slice(i, i + chunkSize));
+        }
+        return result;
+    };
+    
     return (
         <section className="container mt-4">
             <div className="row">
@@ -55,7 +80,7 @@ function ProductDetail() {
                                     />
                                 ))}
                             </div>
-                            <div className="carousel-inner">
+                            <div className="carousel-inner text-center">
                                 {productImages.map((productImage, index) => (
                                     <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
                                         <img
@@ -103,13 +128,35 @@ function ProductDetail() {
             </div>
             {/* Placeholder for Related Products */}
             <h3 className="mt-5">Related Products</h3>
-            <div className="carousel carousel-dark slide mt-4" data-bs-ride="true">
+            <div id="relatedProductSlider" className="carousel carousel-dark slide mt-4" data-bs-ride="true">
                 <div className="carousel-indicators">
-                    {/* Add carousel buttons for related products dynamically */}
+                    {chunkArray(relatedProducts, 4).map((_, index) => (
+                        <button
+                            key={index}
+                            type="button"
+                            data-bs-target="#relatedProductSlider"
+                            data-bs-slide-to={index}
+                            className={index === 0 ? "active" : ""}
+                            aria-label={`Slide ${index + 1}`}
+                        />
+                    ))}
                 </div>
-                {/* Add carousel items dynamically */}
+                {/* Add carousel buttons for related products dynamically */}
+                <div className="carousel-inner">
+                    {chunkArray(relatedProducts, 4).map((chunk, index) => (
+                        <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                            <div className="row mb-5">
+                                {chunk.map((relatedProduct) => (
+                                        <SingleProduct key={relatedProduct.id} product={relatedProduct} />
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </section>
+
+            {/* Add carousel items dynamically */}
+        </section >
     );
 }
 
