@@ -107,9 +107,9 @@ function ProductDetail() {
                     <p>{productData.description}</p>
                     <h5 className="card-name">Price (₹): {productData.price}</h5>
                     <p className="mt-3">
-                        <button className="btn btn-dark btn-block">
+                        <Link to={productData.demoLink}className="btn btn-dark btn-block">
                             <i className="fa fa-video"></i> Demo
-                        </button>
+                        </Link>
                         <button className="btn btn-primary btn-block ms-2">
                             <i className="fa-solid fa-cart-plus"></i> Add to Cart
                         </button>
@@ -126,36 +126,37 @@ function ProductDetail() {
                     </div>
                 </div>
             </div>
-            {/* Placeholder for Related Products */}
-            <h3 className="mt-5">Related Products</h3>
-            <div id="relatedProductSlider" className="carousel carousel-dark slide mt-4" data-bs-ride="true">
-                <div className="carousel-indicators">
-                    {chunkArray(relatedProducts, 4).map((_, index) => (
-                        <button
-                            key={index}
-                            type="button"
-                            data-bs-target="#relatedProductSlider"
-                            data-bs-slide-to={index}
-                            className={index === 0 ? "active" : ""}
-                            aria-label={`Slide ${index + 1}`}
-                        />
-                    ))}
-                </div>
-                {/* Add carousel buttons for related products dynamically */}
-                <div className="carousel-inner">
-                    {chunkArray(relatedProducts, 4).map((chunk, index) => (
-                        <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                            <div className="row mb-5">
-                                {chunk.map((relatedProduct) => (
-                                        <SingleProduct key={relatedProduct.id} product={relatedProduct} />
-                                ))}
-                            </div>
+            {
+                relatedProducts.length > 0 && <>
+                    <h3 className="mt-5">Related Products</h3>
+                    <div id="relatedProductSlider" className="carousel carousel-dark slide mt-4" data-bs-ride="true">
+                        <div className="carousel-indicators">
+                            {chunkArray(relatedProducts, 4).map((_, index) => (
+                                <button
+                                    key={index}
+                                    type="button"
+                                    data-bs-target="#relatedProductSlider"
+                                    data-bs-slide-to={index}
+                                    className={index === 0 ? "active" : ""}
+                                    aria-label={`Slide ${index + 1}`}
+                                />
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Add carousel items dynamically */}
+                        {/* Add carousel buttons for related products dynamically */}
+                        <div className="carousel-inner">
+                            {chunkArray(relatedProducts, 4).map((chunk, index) => (
+                                <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                                    <div className="row mb-5">
+                                        {chunk.map((relatedProduct) => (
+                                            <SingleProduct key={relatedProduct.id} product={relatedProduct} />
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </>
+            }
         </section >
     );
 }

@@ -6,7 +6,7 @@ function AllProducts() {
     const baseurl = "http://127.0.0.1:8000/api/products/";
     const [products, setProducts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [pageSize, setPageSize] = useState(1); // Default page size (adjust based on API response)
+    const [pageSize, setPageSize] = useState(10); // Default page size (adjust based on API response)
 
     const location = useLocation();
 

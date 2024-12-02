@@ -19,7 +19,8 @@ import OrderFailure from './Components/OrderFailure';
 
 //customer panel
 import Register from './Components/Customer/Register';
-import Login from './Components/Customer/Login';
+import CustomerLogin from './Components/Customer/Login';
+import CustomerLogout from './Components/Customer/Logout';
 import Dashboard from './Components/Customer/Dashboard';
 import Orders from './Components/Customer/Orders';
 import WishList from './Components/Customer/Wishlist';
@@ -60,7 +61,8 @@ function App() {
 
         {/* customer panel */}
         <Route path='/customer/register' element={<Register />} />
-        <Route path='/customer/login' element={<Login />} />
+        <Route path='/customer/login' element={<CustomerLogin />} />
+        <Route path='/customer/logout' element={<CustomerLogout  />} />
         <Route path='/customer/dashboard' element={<Dashboard />} />
         <Route path='/customer/orders' element={<Orders />} />
         <Route path='/customer/wishlist' element={<WishList />} />
@@ -80,7 +82,6 @@ function App() {
         <Route path='/vendor/reports' element={<Reports />} />
         <Route path='/vendor/profile' element={<VendorProfile />} />
         <Route path='/vendor/change-password' element={<VendorChangePassword />} />
-        
 
       </Routes>
       <Footer />
