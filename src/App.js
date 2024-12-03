@@ -41,9 +41,13 @@ import Reports from './Components/Vendor/Reports';
 import VendorProfile from './Components/Vendor/VendorProfile';
 import VendorChangePassword from './Components/Vendor/VendorChangePassword';
 
+import { CartContext } from './Context';
+import { useState } from 'react';
+
 function App() {
+  var [cartContext,setCartContext] = useState(JSON.parse(localStorage.getItem('cart')) || []);
   return (
-    <>
+    <CartContext.Provider value = {{cartContext,setCartContext}}>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -85,7 +89,7 @@ function App() {
 
       </Routes>
       <Footer />
-    </>
+    </CartContext.Provider>
   );
 }
 

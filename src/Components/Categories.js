@@ -5,13 +5,13 @@ function Categories() {
     const baseurl = "http://127.0.0.1:8000/api/categories/";
     const [categories, setCategories] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [pageSize, setPageSize] = useState(1); // Default page size (adjust based on API response)
+    const [pageSize, setPageSize] = useState(10); // Default page size (adjust based on API response)
 
     const location = useLocation();
 
     // Extract page number from query string
     const query = new URLSearchParams(location.search);
-    var currentPage = parseInt(query.get("page")) || 1; // Default to page 1 if not present
+    var currentPage = parseInt(query.get("page")) || 10; // Default to page 1 if not present
 
     if (currentPage > totalCount / pageSize) currentPage = 1;
 

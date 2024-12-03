@@ -12,7 +12,7 @@ function AllProducts() {
 
     // Extract page number from query string
     const query = new URLSearchParams(location.search);
-    var currentPage = parseInt(query.get("page")) || 1; // Default to page 1 if not present
+    var currentPage = parseInt(query.get("page")) || 10; // Default to page 1 if not present
     
     if(currentPage>totalCount/pageSize) currentPage = 1;
     

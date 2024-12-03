@@ -1,22 +1,25 @@
 import { Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import SingleProduct from './SingleProduct';
-
+import UserContext, { CartContext } from '../../Context';
 function ProductDetail() {
     const baseurl = "http://127.0.0.1:8000/api/product/";
     const [productData, setProductData] = useState(null);
     const [productImages, setProductImages] = useState([]);
     const [productTags, setProductTags] = useState([]);
+    const [cartButtonClickStatus, setCartButtonClickStatus] = useState(false);
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [quantity, setQuantity] = useState(1);
     const { product_id } = useParams();
+    const { cartContext, setCartContext } = useContext(CartContext);
+    const userContext = useContext(UserContext);
 
     useEffect(() => {
         fetchData(`${baseurl}${product_id}`);
+        fetchRelatedProducts(`${baseurl}related-products/${product_id}`);
+        checkProductInCart(product_id);
     }, [product_id]); // Added product_id to dependencies
 
-    useEffect(() => {
-        fetchRelatedProducts(`${baseurl}related-products/${product_id}`);
-    }, [product_id]);
 
     const fetchData = async (url) => {
         try {
@@ -46,6 +49,10 @@ function ProductDetail() {
         return <div className="container mt-4">Loading...</div>;
     }
 
+    const handleQuantityChange = (event) => {
+        setQuantity(parseInt(event.target.value, 10));  // Update quantity state
+    };
+
     const productTagsList = []
     for (let i = 0; i < productTags.length; i++) {
         let tag = productTags[i].trim()
@@ -61,7 +68,60 @@ function ProductDetail() {
         }
         return result;
     };
-    
+
+    function checkProductInCart(product_id) {
+        var cartData = localStorage.getItem('cart');
+        var cartJson = cartData ? JSON.parse(cartData) : [];
+        for (let i = 0; i < cartJson.length; i++) {
+            if (cartJson[i].product.product_id == product_id) {
+                setCartButtonClickStatus(true);
+                break;
+            }
+        }
+    }
+
+    const addtoCartHandler = () => {
+        var cartJson = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+        const addToCartData = {
+            'product': {
+                'product_id': productData.id,
+                'product_name': productData.name,
+                'product_price': productData.price,
+                'product_image': productData.image,
+                'product_quantity': quantity
+            },
+            'user': {
+                'user': userContext.customerName,
+            }
+        }
+        const existingProductIndex = cartJson.findIndex(item => item.product.product_id === productData.id);
+        if (existingProductIndex >= 0) {
+            // Product already in cart, update the quantity
+            cartJson[existingProductIndex].product.product_quantity += quantity;
+        } else {
+            // Product not in cart, add new item
+            cartJson.push(addToCartData);
+        }
+        localStorage.setItem('cart', JSON.stringify(cartJson));
+        setCartContext(cartJson);
+        setCartButtonClickStatus(true);
+    }
+
+    const removeCartHandler = () => {
+        var cartData = localStorage.getItem('cart');
+        var cartJson = cartData ? JSON.parse(cartData) : [];
+        for (let i = 0; i < cartJson.length; i++) {
+            if (cartJson[i].product.product_id === productData.id) {
+                cartJson.splice(i, 1);
+                break;
+            }
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cartJson));
+        setCartContext(cartJson);
+        setCartButtonClickStatus(false);
+    }
+
     return (
         <section className="container mt-4">
             <div className="row">
@@ -102,21 +162,33 @@ function ProductDetail() {
                         </div>
                     )}
                 </div>
-                <div className="col-8">
+                <div className="col-8 ">
                     <h3>{productData.name}</h3>
                     <p>{productData.description}</p>
-                    <h5 className="card-name">Price (₹): {productData.price}</h5>
-                    <p className="mt-3">
-                        <Link to={productData.demoLink}className="btn btn-dark btn-block">
+                    <h5 className="card-name mb-3">Price (₹): {productData.price}</h5>
+                    <h6 >Quantity</h6>
+                    <select className="form-select mt-2" value={quantity} onChange={handleQuantityChange} style={{ width: "auto", maxWidth: "120px" }}>
+                        {[...Array(10).keys()].map((num) => (  // Example: Allow quantity from 1 to 10
+                            <option key={num + 1} value={num + 1}>{num + 1}</option>
+                        ))}
+                    </select>
+                    <p className="mt-3 mb-3">
+                        <Link to={productData.demoLink} className="btn btn-dark btn-block mt-2">
                             <i className="fa fa-video"></i> Demo
                         </Link>
-                        <button className="btn btn-primary btn-block ms-2">
+                        <button name="add-to-cart" title='Add to cart' onClick={addtoCartHandler} className="btn btn-primary btn-block mt-2 ms-2">
                             <i className="fa-solid fa-cart-plus"></i> Add to Cart
                         </button>
-                        <button className="btn btn-success btn-block ms-2">
+                        {
+                            cartButtonClickStatus &&
+                            <button name="remove-cart" title='Add to cart' onClick={removeCartHandler} className="btn btn-danger btn-block mt-2 ms-2">
+                                <i className="fa-solid fa-cart-plus"></i> Remove From Cart
+                            </button>
+                        }
+                        <button className="btn btn-success btn-block mt-2 ms-2">
                             <i className="fa fa-bag-shopping"></i> Buy Now
                         </button>
-                        <button className="btn btn-danger btn-block ms-2">
+                        <button className="btn btn-danger btn-block mt-2 ms-2">
                             <i className="fa fa-heart"></i> Add to Wishlist
                         </button>
                     </p>
