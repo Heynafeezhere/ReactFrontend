@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 function CustomerLogin() {
     const baseUrl = "http://127.0.0.1:8000/api/"
     const initialFormData = {
@@ -21,7 +22,9 @@ function CustomerLogin() {
         submitFormData.append('password', loginFormData.password);
         axios.post(`${baseUrl}customer/login/`, submitFormData).then((response) => {
             setErrorMessage('')
+            console.log(response.data)
             localStorage.setItem('customer_login', true);
+            localStorage.setItem('customer_id', response.data.userId);
             localStorage.setItem('customer_username', response.data.user);
         }).catch((error) => {
             console.log(error);
@@ -61,6 +64,7 @@ function CustomerLogin() {
                                 {
                                     errorMessage && <p className="text-danger mt-1">{errorMessage}!!</p>
                                 }
+                                <p className="mt-2">Don't have an account? <Link to="/customer/register">Register</Link></p>
                             </form>
                         </div>
                     </div>

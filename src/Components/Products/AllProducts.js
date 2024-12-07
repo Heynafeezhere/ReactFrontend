@@ -12,13 +12,15 @@ function AllProducts() {
 
     // Extract page number from query string
     const query = new URLSearchParams(location.search);
-    var currentPage = parseInt(query.get("page")) || 10; // Default to page 1 if not present
-    
-    if(currentPage>totalCount/pageSize) currentPage = 1;
-    
+    const currentPage = parseInt(query.get("page")) || 1; // Default to page 1 if not present
+
+    // Ensure currentPage doesn't exceed total pages
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const adjustedPage = Math.min(currentPage, totalPages) || 1;
+
     useEffect(() => {
-        fetchData(`${baseurl}?page=${currentPage}`);
-    }, [currentPage]);
+        fetchData(`${baseurl}?page=${adjustedPage}`);
+    }, [adjustedPage]); // Effect runs whenever adjustedPage changes
 
     function fetchData(url) {
         fetch(url)
@@ -30,17 +32,13 @@ function AllProducts() {
             });
     }
 
-    // Calculate total pages
-    const totalPages = Math.ceil(totalCount / pageSize);
-
-
-
+    // Generate pagination links
     const links = [];
     for (let i = 1; i <= totalPages; i++) {
         links.push(
             <li
                 key={i}
-                className={`page-item ${currentPage === i ? "active" : ""}`}
+                className={`page-item ${adjustedPage === i ? "active" : ""}`}
             >
                 <Link
                     className="page-link"

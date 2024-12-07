@@ -164,8 +164,11 @@ function ProductDetail() {
                 </div>
                 <div className="col-8 ">
                     <h3>{productData.name}</h3>
-                    <p>{productData.description}</p>
+                    <p className="mt-1 text-muted">Item-Id : {product_id}</p>
                     <h5 className="card-name mb-3">Price (₹): {productData.price}</h5>
+                    <h5>Product Description</h5>
+                    <p>{productData.description}</p>
+                    <hr/>
                     <h6 >Quantity</h6>
                     <select className="form-select mt-2" value={quantity} onChange={handleQuantityChange} style={{ width: "auto", maxWidth: "120px" }}>
                         {[...Array(10).keys()].map((num) => (  // Example: Allow quantity from 1 to 10
@@ -182,7 +185,7 @@ function ProductDetail() {
                         {
                             cartButtonClickStatus &&
                             <button name="remove-cart" title='Add to cart' onClick={removeCartHandler} className="btn btn-danger btn-block mt-2 ms-2">
-                                <i className="fa-solid fa-cart-plus"></i> Remove From Cart
+                                <i className="fa-solid fa-trash-can"></i> Remove From Cart
                             </button>
                         }
                         <button className="btn btn-success btn-block mt-2 ms-2">

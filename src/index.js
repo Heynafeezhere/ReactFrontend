@@ -11,7 +11,6 @@ const customerName = localStorage.getItem('customer_username');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Router>
       <UserContext.Provider value={{
         'customerLogin': customerLogin,
@@ -20,7 +19,6 @@ root.render(
         <App />
       </UserContext.Provider>
     </Router>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

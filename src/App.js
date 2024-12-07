@@ -14,6 +14,7 @@ import ProductDetail from './Components/Products/ProductDetail';
 import AllProducts from './Components/Products/AllProducts';
 import TaggedProducts from './Components/Products/TaggedProducts';
 import Checkout from './Components/Checkout';
+import ConfirmOrder from './Components/ConfirmOrder';
 import OrderSuccess from './Components/OrderSuccess';
 import OrderFailure from './Components/OrderFailure';
 
@@ -60,6 +61,7 @@ function App() {
         <Route path='/category/:category_slug/:category_id' element={<CategoryProducts />} />
         
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/order-confirmation' element={<ConfirmOrder />} />
         <Route path='/orders/success' element={<OrderSuccess />} />
         <Route path='/orders/failure' element={<OrderFailure />} />
 
