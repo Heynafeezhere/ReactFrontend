@@ -2,14 +2,15 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import UserContext, { CartContext } from '../Context';
 import { Link } from 'react-router-dom';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 function ConfirmOrder() {
     const baseUrl = "http://127.0.0.1:8000/api/";  // Use a constant base URL
     const userContext = useContext(UserContext);
     const { cartContext, setCartContext } = useContext(CartContext);
     const [isOrderProcessed, setIsOrderProcessed] = useState(false); // Flag to prevent duplicate API calls
-    const [orderIdValue,setOrderIdValue] = useState(0);
-    const [payMethod,setPayMethod] = useState('');
+    const [orderIdValue, setOrderIdValue] = useState(0);
+    const [payMethod, setPayMethod] = useState('');
 
     // If user is not logged in, redirect to login page
     useEffect(() => {
@@ -72,7 +73,8 @@ function ConfirmOrder() {
         // Send the order items data to the API
         axios.post(`${baseUrl}order/order-item/`, { order: orderItemArray })
             .then(function (response) {
-                clearCart(); // Clear the cart once order items are successfully added
+                console.log(totalAmount);
+                
             })
             .catch(function (error) {
                 console.log(error);
@@ -86,14 +88,27 @@ function ConfirmOrder() {
         console.log('Cart cleared');
     }
 
-    function changePaymentMethod(payMethod){
-        setPayMethod(payMethod)
-    }    
+    function updateOrderStatus(orderStatus, transactionId) {
+        console.log(orderIdValue,orderStatus,transactionId);
+        axios.post(`${baseUrl}order/update-order-status/`, { orderId: orderIdValue, orderStatus: orderStatus, transactionId: transactionId, paymentMethod : payMethod })
+        .then(function (response) {
+            console.log(totalAmount);
+            
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
 
-    function payNowButton(){
-        if(payMethod !='') alert(`Payment processing using ${payMethod}`)
+    function changePaymentMethod(payMethod) {
+        setPayMethod(payMethod)
+    }
+
+    function payNowButton() {
+        if (payMethod != '') alert(`Payment processing using ${payMethod}`)
         else alert('Select payment Method')
     }
+
     return (
         <section className="container mt-4">
             <div className="row mt-3">
@@ -109,24 +124,55 @@ function ConfirmOrder() {
                             </Link>
                         </div>
                     </div>
-                    <div className='card p-3 mt-4'>
+                    <div className='card p-4 mt-4'>
                         <form>
                             <div className='form-group'>
                                 <label>
-                                    <input type='radio' onChange={()=>changePaymentMethod('upi')} name='payMethod' /> UPI
+                                    <input type='radio' onChange={() => changePaymentMethod('upi')} name='payMethod' /> UPI
                                 </label>
                             </div>
                             <div className='form-group'>
                                 <label>
-                                    <input type='radio' onChange={()=>changePaymentMethod('paytm')} name='payMethod' /> paytm
+                                    <input type='radio' onChange={() => changePaymentMethod('paytm')} name='payMethod' /> paytm
                                 </label>
                             </div>
                             <div className='form-group'>
                                 <label>
-                                    <input type='radio' onChange={()=>changePaymentMethod('razorpay')} name='payMethod' /> RazorPay
+                                    <input type='radio' onChange={() => changePaymentMethod('razorpay')} name='payMethod' /> RazorPay
+                                </label>
+                            </div>
+                            <div className='form-group'>
+                                <label>
+                                    <input type='radio' onChange={() => changePaymentMethod('paypal')} name='payMethod' /> PayPal
                                 </label>
                             </div>
                             <button type='button' onClick={payNowButton} className='btn btn-sm btn-success mt-'>Next</button>
+                            {
+                                payMethod == 'paypal' &&
+                                <PayPalScriptProvider options={{ "client-id": "Aey8Ohgm3wA42ETEs99yTzQXOtvgdpuOFzyJvpRWtwxD4dzxW4s6YuJX-knnAl7Bl5pQ9_UrKVcj_11p" }}>
+                                    <PayPalButtons className='mt-3'
+                                        createOrder={(data, actions) => {
+                                            return actions.order.create({
+                                                purchase_units: [
+                                                    {
+                                                        amount: {
+                                                            currency_code: "USD",
+                                                            value: totalAmount,
+                                                        },
+                                                    },
+                                                ],
+                                            });
+                                        }}
+                                        onApprove={(data, actions) => {
+                                            return actions.order.capture().then(function (details) {
+                                                console.log(details);
+                                                updateOrderStatus('processed',details.id);
+                                                alert('Transaction completed by ' + details.payer.name.given_name);
+                                            });
+                                        }}
+                                    />
+                                </PayPalScriptProvider>
+                            }
                         </form>
                     </div>
                 </div>
