@@ -1,8 +1,25 @@
 import Sidebar from './Sidebar';
+import UserContext from '../../Context';
 
 import { Link } from 'react-router-dom';
 import logo from '../../logo.svg';
+import { useEffect, useContext, useState } from 'react';
 function Orders() {
+    const userContext = useContext(UserContext)
+    const [orderItems, setOrderItems] = useState([])
+    const baseUrl = 'http://127.0.0.1:8000/api/';
+
+    useEffect(() => {
+        fetchData(`${baseUrl}customer/${userContext.customerId}/orders/`)
+    }, [userContext])
+
+    function fetchData(url) {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => setOrderItems(data.results))
+    }
+
+
     return (
         <section className="container mt-4">
             <div className="row mt-3">
@@ -12,47 +29,48 @@ function Orders() {
                 <div className='col-md-9 col-12 mb-2'>
                     <div className='row'>
                         <div className="table responsive">
-                            <table className="table table-bordered">
+                            <table className="table table-bordered text-center">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>Order Number</th>
                                         <th>Product</th>
                                         <th>Price</th>
+                                        <th>Quantity</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
-                                            <p><Link to="/product/T-shirt/1">DNMX T-shirt</Link></p>
-                                        </td>
-                                        <td>Rs.500</td>
-                                        <td><span className='text-success'><i className="fa fa-check-circle"></i> Completed</span></td>
-                                        <td><button className='btn btn-primary'>Download</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
-                                            <p><Link to="/product/T-shirt/1">DNMX Shirt</Link></p>
-                                        </td>
-                                        <td>Rs.780</td>
-                                        <td><span className='text-secondary'><i className="fa fa-spin fa-spinner"></i> Proccessing</span></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
-                                            <p><Link to="/product/T-shirt/1">DNMX Pant</Link></p>
-                                        </td>
-                                        <td>Rs.1079</td>
-                                        <td><span className='text-danger'><i className="fa fa-times-circle"></i> Cancelled</span></td>
-                                        <td></td>
-                                    </tr>
+                                    {
+                                        orderItems.map((item) => {
+                                            return (
+                                                <tr className='align-middle'>
+                                                    <td>{item.id}</td>
+                                                    <td>
+                                                        <Link to={`/product/${item.product.slug}/${item.product.id}`}><img src={item.product.image} className="img-thumbnail me-2" width={80} alt="..." /></Link>
+                                                        <p><Link to={`/product/${item.product.slug}/${item.product.id}`} className='text-dark'>{item.product.name}</Link></p>
+                                                    </td>
+                                                    <td>Rs.{(item.product.price * item.quantity).toFixed(2)}</td>
+                                                    <td>{(item.quantity)}</td>
+                                                    <td>
+                                                        {
+                                                            item.order.status == 'processed' &&
+                                                            <span className='text-success'><i className="fa fa-check-circle"></i> {item.order.status}</span>
+                                                        }
+                                                        {
+                                                            item.order.status == 'pending' &&
+                                                            <span className='text-dark'><i className="fa fa-spinner fa-spin"></i> {item.order.status}</span>
+                                                        }
+                                                        {
+                                                            item.order.status == 'canceled' &&
+                                                            <span className='text-danger'><i className="fa fa-times-circle"></i> {item.order.status}</span>
+                                                        }
+                                                    </td>
+                                                    <td><Link to='/' className='btn btn-primary'>Download</Link></td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
                                 </tbody>
                             </table>
                         </div>

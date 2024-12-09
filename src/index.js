@@ -8,13 +8,15 @@ import UserContext from './Context'
 
 const customerLogin = localStorage.getItem('customer_login');
 const customerName = localStorage.getItem('customer_username');
+const customerId = localStorage.getItem('customer_id');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Router>
       <UserContext.Provider value={{
         'customerLogin': customerLogin,
-        'customerName': customerName
+        'customerName': customerName,
+        'customerId' : customerId
       }}>
         <App />
       </UserContext.Provider>

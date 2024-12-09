@@ -85,14 +85,13 @@ function ConfirmOrder() {
     function clearCart() {
         setCartContext([]); // Clear cart context
         localStorage.setItem('cart', JSON.stringify([])); // Clear the cart in localStorage
-        console.log('Cart cleared');
     }
 
     function updateOrderStatus(orderStatus, transactionId) {
-        console.log(orderIdValue,orderStatus,transactionId);
         axios.post(`${baseUrl}order/update-order-status/`, { orderId: orderIdValue, orderStatus: orderStatus, transactionId: transactionId, paymentMethod : payMethod })
         .then(function (response) {
-            console.log(totalAmount);
+            clearCart()
+            window.location.href = '/customer/orders';
             
         })
         .catch(function (error) {
@@ -165,7 +164,6 @@ function ConfirmOrder() {
                                         }}
                                         onApprove={(data, actions) => {
                                             return actions.order.capture().then(function (details) {
-                                                console.log(details);
                                                 updateOrderStatus('processed',details.id);
                                                 alert('Transaction completed by ' + details.payer.name.given_name);
                                             });
