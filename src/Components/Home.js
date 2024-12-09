@@ -1,18 +1,36 @@
 import logo from '../logo.svg';
 import SingleProduct from './Products/SingleProduct';
 import { Link } from 'react-router-dom';
+import { useState,useEffect } from 'react';
 
 function Home() {
-    const products = [
-        { 'id': 1, 'name': 'Product title - 1', 'price': 'Rs. 500' },
-        { 'id': 2, 'name': 'Product title - 2', 'price': 'Rs. 500' },
-        { 'id': 3, 'name': 'Product title - 3', 'price': 'Rs. 500' },
-        { 'id': 4, 'name': 'Product title - 4', 'price': 'Rs. 500' },
-        { 'id': 5, 'name': 'Product title - 5', 'price': 'Rs. 500' },
-        { 'id': 6, 'name': 'Product title - 6', 'price': 'Rs. 500' },
-        { 'id': 7, 'name': 'Product title - 7', 'price': 'Rs. 500' },
-        { 'id': 8, 'name': 'Product title - 8', 'price': 'Rs. 500' },
-    ]
+    const baseurl = "http://127.0.0.1:8000/api/";
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const limit_products = 8
+    const limit_categories = 4
+    useEffect(() => {
+        fetchProducts(`${baseurl}products/?fetch_limit=${limit_products}`);
+        fetchCategories(`${baseurl}categories/?fetch_limit=${limit_categories}`);
+    }, [limit_products,limit_categories]); // Effect runs whenever fetch_limit changes
+
+    function fetchProducts(url) {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                setProducts(data.results);
+            });
+    }
+
+    function fetchCategories(url) {
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                setCategories(data.results);
+            });
+    }
+    
+
     return (
         <main className='mt-4'>
             <div className="container">
@@ -32,60 +50,21 @@ function Home() {
                     <Link to='/categories' className='float-end btn btn-dark'>View All Categories <i className="fa-solid fa-arrow-right"></i></Link>
                 </h3>
                 <div className="row mb-4">
-                    {/* Categories Box */}
-                    <div className="col-12 col-md-3 mb-4">
-                        <div className="card">
-                            <img src={logo} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h4 className="card-title"><Link to="/category/fashion/1">Fashion</Link></h4>
-                            </div>
-                            <div className='card-footer'>
-                                Product Downloads : 2546
-                            </div>
-                        </div>
-                    </div>
-                    {/* Categories Box End*/}
-                    {/* Categories Box */}
-                    <div className="col-12 col-md-3 mb-4">
-                        <div className="card">
-                            <img src={logo} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h4 className="card-title"><Link to="/">Category title</Link></h4>
-                            </div>
-                            <div className='card-footer'>
-                                Product Downloads : 2546
+                    {categories.map((category) => (
+                        <div className="col-12 col-md-3 mb-4">
+                            <div className="card">
+                                <img src={logo} className="card-img-top" alt={category.title} />
+                                <div className="card-body">
+                                    <h4 className="card-title"><Link to={`/category/${category.title}/${category.id}`}>{category.title}</Link></h4>
+                                </div>
+                                <div className='card-footer'>
+                                    Products : 2546
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {/* Categories Box End*/}
-                    {/* Categories Box */}
-                    <div className="col-12 col-md-3 mb-4">
-                        <div className="card">
-                            <img src={logo} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h4 className="card-title"><Link to="/">Category title</Link></h4>
-                            </div>
-                            <div className='card-footer'>
-                                Product Downloads : 2546
-                            </div>
-                        </div>
-                    </div>
-                    {/* Categories Box End*/}
-                    {/* Categories Box */}
-                    <div className="col-12 col-md-3 mb-4">
-                        <div className="card">
-                            <img src={logo} className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h4 className="card-title"><Link to="/">Category title</Link></h4>
-                            </div>
-                            <div className='card-footer'>
-                                Product Downloads : 2546
-                            </div>
-                        </div>
-                    </div>
-                    {/* Categories Box End*/}
+                    ))}
                 </div>
-                {/* popular Categories End*/}
+                { }
 
                 {/* Popular Vendors */}
                 <h3 className='mb-4'>Popular Vendors

@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import SingleProduct from "./SingleProduct";
 
 function AllProducts() {
-    const baseurl = "http://127.0.0.1:8000/api/products/";
+    const baseurl = "http://127.0.0.1:8000/api/";
     const [products, setProducts] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [pageSize, setPageSize] = useState(10); // Default page size (adjust based on API response)
@@ -19,7 +19,7 @@ function AllProducts() {
     const adjustedPage = Math.min(currentPage, totalPages) || 1;
 
     useEffect(() => {
-        fetchData(`${baseurl}?page=${adjustedPage}`);
+        fetchData(`${baseurl}products/?page=${adjustedPage}`);
     }, [adjustedPage]); // Effect runs whenever adjustedPage changes
 
     function fetchData(url) {

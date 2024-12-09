@@ -7,7 +7,7 @@ function Orders() {
     const userContext = useContext(UserContext);
     const [orderItems, setOrderItems] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
-    const [pageSize, setPageSize] = useState(10); // Default page size
+    const [pageSize, setPageSize] = useState(5); // Default page size
     const baseUrl = 'http://127.0.0.1:8000/api/';
 
     const location = useLocation();
@@ -69,7 +69,6 @@ function Orders() {
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +99,6 @@ function Orders() {
                                                             <span className='text-danger'><i className="fa fa-times-circle"></i> {item.order.status}</span>
                                                         }
                                                     </td>
-                                                    <td><Link to='/' className='btn btn-primary'>Download</Link></td>
                                                 </tr>
                                             );
                                         })

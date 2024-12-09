@@ -91,10 +91,11 @@ function ConfirmOrder() {
         axios.post(`${baseUrl}order/update-order-status/`, { orderId: orderIdValue, orderStatus: orderStatus, transactionId: transactionId, paymentMethod : payMethod })
         .then(function (response) {
             clearCart()
-            window.location.href = '/customer/orders';
+            window.location.href = '/order/success';
             
         })
         .catch(function (error) {
+            window.location.href = '/order/failure';
             console.log(error);
         });
     }
@@ -114,13 +115,10 @@ function ConfirmOrder() {
                 <div className="col-md-8 offset-2 mb-2">
                     <div className="card">
                         <div className="card-body text-center">
-                            <i className="fa fa-check-circle text-success fa-3x" />
-                            <h4 className="mt-3">Order Confirmed</h4>
+                            <i className="fa fa-spinner fa-spin text-dark fa-3x" />
+                            <h3 className="mt-3">Complete the payment to confirm your order</h3>
                             <h6 className=" text-muted mt-1">Order Id : {orderIdValue}</h6>
-                            <p>Your order has been confirmed! You will receive an email with the order details soon.</p>
-                            <Link to="/" className="btn btn-primary">
-                                <i className="fa-solid fa-house" /> Go to Homepage
-                            </Link>
+                            <p>Once payment is completed! You will receive an email with the order details.</p>
                         </div>
                     </div>
                     <div className='card p-4 mt-4'>
@@ -145,7 +143,7 @@ function ConfirmOrder() {
                                     <input type='radio' onChange={() => changePaymentMethod('paypal')} name='payMethod' /> PayPal
                                 </label>
                             </div>
-                            <button type='button' onClick={payNowButton} className='btn btn-sm btn-success mt-'>Next</button>
+                            <button type='button' onClick={payNowButton} className='btn btn-sm btn-success mt-2'>Next</button>
                             {
                                 payMethod == 'paypal' &&
                                 <PayPalScriptProvider options={{ "client-id": "Aey8Ohgm3wA42ETEs99yTzQXOtvgdpuOFzyJvpRWtwxD4dzxW4s6YuJX-knnAl7Bl5pQ9_UrKVcj_11p" }}>

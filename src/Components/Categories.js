@@ -2,7 +2,7 @@ import logo from '../logo.svg';
 import { useLocation, Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 function Categories() {
-    const baseurl = "http://127.0.0.1:8000/api/categories/";
+    const baseurl = "http://127.0.0.1:8000/api/";
     const [categories, setCategories] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [pageSize, setPageSize] = useState(10); // Default page size (adjust based on API response)
@@ -16,7 +16,7 @@ function Categories() {
     if (currentPage > totalCount / pageSize) currentPage = 1;
 
     useEffect(() => {
-        fetchData(`${baseurl}?page=${currentPage}`);
+        fetchData(`${baseurl}categories/?page=${currentPage}`);
     }, [currentPage]);
 
     function fetchData(url) {

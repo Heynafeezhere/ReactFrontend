@@ -62,8 +62,8 @@ function App() {
         
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/order-confirmation' element={<ConfirmOrder />} />
-        <Route path='/orders/success' element={<OrderSuccess />} />
-        <Route path='/orders/failure' element={<OrderFailure />} />
+        <Route path='/order/success' element={<OrderSuccess />} />
+        <Route path='/order/failure' element={<OrderFailure />} />
 
         {/* customer panel */}
         <Route path='/customer/register' element={<Register />} />
