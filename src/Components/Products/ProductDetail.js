@@ -2,23 +2,48 @@ import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import SingleProduct from './SingleProduct';
 import UserContext, { CartContext } from '../../Context';
+import axios from 'axios';
 function ProductDetail() {
-    const baseurl = "http://127.0.0.1:8000/api/product/";
+    const baseurl = "http://127.0.0.1:8000/api/";
     const [productData, setProductData] = useState(null);
     const [productImages, setProductImages] = useState([]);
     const [productTags, setProductTags] = useState([]);
     const [cartButtonClickStatus, setCartButtonClickStatus] = useState(false);
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [quantity, setQuantity] = useState(1);
+    const [checkWhishlist, setCheckWhishlist] = useState(false);
     const { product_id } = useParams();
     const { cartContext, setCartContext } = useContext(CartContext);
     const userContext = useContext(UserContext);
 
+
+    const checkProductInWishlist = async (url) => {
+        try {
+            const urlObj = new URL(url);
+    
+            const params = {
+                customerId: userContext.customerId,
+                productId: product_id,
+            };
+    
+            Object.keys(params).forEach(key => urlObj.searchParams.append(key, params[key]));
+    
+            const response = await fetch(urlObj);
+            if (!response.ok) throw new Error("Failed to fetch wishlist data");
+            const data = await response.json();
+            setCheckWhishlist(data.bool)
+        } catch (error) {
+            console.error("Error fetching wishlist data:", error);
+        }
+    };
+    
+    
     useEffect(() => {
-        fetchData(`${baseurl}${product_id}`);
-        fetchRelatedProducts(`${baseurl}related-products/${product_id}`);
+        fetchData(`${baseurl}product/${product_id}`);
+        fetchRelatedProducts(`${baseurl}product/related-products/${product_id}`);
         checkProductInCart(product_id);
-    }, [product_id]); // Added product_id to dependencies
+        checkProductInWishlist(`${baseurl}customer/check-wishlist/`)
+    }, [product_id,checkWhishlist]);
 
 
     const fetchData = async (url) => {
@@ -80,6 +105,8 @@ function ProductDetail() {
         }
     }
 
+   
+
     const addtoCartHandler = () => {
         var cartJson = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
         const addToCartData = {
@@ -122,6 +149,19 @@ function ProductDetail() {
         setCartButtonClickStatus(false);
     }
 
+    function wishListHandler() {
+        const formData = new FormData();
+        formData.append('customerId',userContext.customerId)
+        formData.append('productId',product_id)
+
+        axios.post(`${baseurl}customer/add-wishlist/`,formData)
+        .then(function (response){
+            if(response.data.bool) setCheckWhishlist(true) 
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+    }
     return (
         <section className="container mt-4">
             <div className="row">
@@ -191,9 +231,17 @@ function ProductDetail() {
                         <button className="btn btn-success btn-block mt-2 ms-2">
                             <i className="fa fa-bag-shopping"></i> Buy Now
                         </button>
-                        <button className="btn btn-danger btn-block mt-2 ms-2">
-                            <i className="fa fa-heart"></i> Add to Wishlist
-                        </button>
+                        {
+                            userContext.customerLogin &&
+                            <button
+                                className="btn btn-danger btn-block mt-2 ms-2"
+                                onClick={wishListHandler}
+                                disabled={checkWhishlist}
+                            >
+                                <i className="fa fa-heart"></i> Add to Wishlist
+                            </button>
+                        }
+                        
                     </p>
                     <div className="product-tags mt-4">
                         <h5>Tags</h5>
