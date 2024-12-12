@@ -45,6 +45,7 @@ import VendorChangePassword from './Components/Vendor/VendorChangePassword';
 import { CartContext } from './Context';
 import { useState } from 'react';
 import UpdateAddress from './Components/Customer/UpdateAddress';
+import VendorLogout from './Components/Vendor/VendorLogout';
 
 function App() {
   var [cartContext,setCartContext] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -83,6 +84,7 @@ function App() {
         <Route path='/vendor/dashboard' element={<VendorDashboard />} />
         <Route path='/vendor/register' element={<VendorRegister />} />
         <Route path='/vendor/login' element={<VendorLogin />} />
+        <Route path='/vendor/logout' element={<VendorLogout />} />
         <Route path='/vendor/products' element={<VendorProducts />} />
         <Route path='/vendor/add-product' element={<AddProduct />} />
         <Route path='/vendor/orders' element={<VendorOrders />} />
