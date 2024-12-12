@@ -10,7 +10,7 @@ function VendorLogin() {
                         <div className='card-body'>
                             <form>
                                 <div className="mb-3">
-                                    <label for="email" className="form-label"><h5>Username/Email</h5></label>
+                                    <label for="email" className="form-label"><h5>Email</h5></label>
                                     <input type="email" className="form-control" id="email" />
                                 </div>
                                 <div className="mb-3">
