@@ -13,18 +13,23 @@ function Profile() {
     useEffect(() => {
         // Fetch user data based on customerId from context
         if (userContext.customerId) {
-            fetch(`${baseUrl}customer/${userContext.customerId}/`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setProfileData(data);
-                    setUpdatedProfileData(data);
-                });
-        }        
-    }, [userContext.customerId]); // Add dependency to re-fetch when customerId changes
+            fetchProfileData();
+        }
+    }, [userContext.customerId]); // Refetch data when customerId changes
+
+    const fetchProfileData = () => {
+        fetch(`${baseUrl}customer/${userContext.customerId}/`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProfileData(data);
+                setUpdatedProfileData(data);
+            });
+    };
 
     function updateProfileHandler(event) {
         event.preventDefault(); // Prevent default form submission behavior
-        
+
+        // Update the user profile
         const updatedUser = new FormData();
         updatedUser.append('first_name', updatedProfileData.user.first_name);
         updatedUser.append('last_name', updatedProfileData.user.last_name);
@@ -38,11 +43,14 @@ function Profile() {
         })
             .then((response) => {
                 console.log('Customer profile updated successfully:', response.data);
+                // Reload the profile data after successful update
+                fetchProfileData();
             })
             .catch((error) => {
                 console.error('Error updating customer profile:', error);
             });
 
+        // Update the customer profile data
         const updatedData = new FormData();
         updatedData.append('phone', updatedProfileData.phone);
         if (updatedProfileData.profile_image) {
@@ -55,12 +63,15 @@ function Profile() {
             }
         })
             .then((response) => {
+                alert('Profile updated successfully');
                 console.log('Customer profile updated successfully:', response.data);
+                // Reload the profile data after successful update
+                fetchProfileData();
             })
             .catch((error) => {
+                alert('Error updating profile');
                 console.error('Error updating customer profile:', error);
             });
-        
     };
 
     const handleFileChange = (event) => {
@@ -85,7 +96,6 @@ function Profile() {
                 return prevData;
             }
         });
-        console.log(updatedProfileData);
     };
 
     return (
@@ -120,7 +130,7 @@ function Profile() {
                                     </label>
                                     <input
                                         type="text"
-                                        value={profileData?.user?.last_name || ''}
+                                        value={updatedProfileData?.user?.last_name || ''}
                                         onChange={handleInputChange}
                                         name="lastName"
                                         className="form-control"
@@ -133,7 +143,7 @@ function Profile() {
                                     </label>
                                     <input
                                         type="text"
-                                        value={profileData?.user?.username || ''}
+                                        value={updatedProfileData?.user?.username || ''}
                                         onChange={handleInputChange}
                                         name="userName"
                                         className="form-control"
@@ -146,7 +156,7 @@ function Profile() {
                                     </label>
                                     <input
                                         type="email"
-                                        value={profileData?.user?.email || ''}
+                                        value={updatedProfileData?.user?.email || ''}
                                         onChange={handleInputChange}
                                         name="email"
                                         className="form-control"
@@ -159,7 +169,7 @@ function Profile() {
                                     </label>
                                     <input
                                         type="phone"
-                                        value={profileData?.phone || ''}
+                                        value={updatedProfileData?.phone || ''}
                                         onChange={handleInputChange}
                                         name="phone"
                                         className="form-control"
@@ -183,7 +193,6 @@ function Profile() {
                                     <button type="submit"
                                         disabled={!updatedProfileData?.user?.first_name || !updatedProfileData?.user?.last_name || !updatedProfileData?.user?.username || !updatedProfileData?.user?.email || !updatedProfileData?.phone}
                                         className="btn btn-primary"
-                                        onClick={updateProfileHandler}
                                     >
                                         Submit
                                     </button>

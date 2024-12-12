@@ -44,6 +44,7 @@ import VendorChangePassword from './Components/Vendor/VendorChangePassword';
 
 import { CartContext } from './Context';
 import { useState } from 'react';
+import UpdateAddress from './Components/Customer/UpdateAddress';
 
 function App() {
   var [cartContext,setCartContext] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -76,6 +77,7 @@ function App() {
         <Route path='/customer/change-password' element={<ChangePassword />} />
         <Route path='/customer/addresses' element={<AddressList />} />
         <Route path='/customer/add-address' element={<AddAddress />} />
+        <Route path='/customer/update-address/:address_id' element={<UpdateAddress />} />
         
         {/* vendor panel */}
         <Route path='/vendor/dashboard' element={<VendorDashboard />} />
