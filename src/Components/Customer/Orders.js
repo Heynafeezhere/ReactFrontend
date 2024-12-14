@@ -83,7 +83,7 @@ function Orders() {
                                                         </Link>
                                                         <p><Link to={`/product/${item.product.slug}/${item.product.id}`} className='text-dark'>{item.product.name}</Link></p>
                                                     </td>
-                                                    <td>Rs.{(item.product.price * item.quantity).toFixed(2)}</td>
+                                                    <td>&#8377;{(item.product.price * item.quantity).toFixed(2)}</td>
                                                     <td>{(item.quantity)}</td>
                                                     <td>
                                                         {

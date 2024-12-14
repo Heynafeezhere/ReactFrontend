@@ -74,7 +74,7 @@ function Wishlist() {
                                                         </Link>
                                                         <p><Link to={`/product/${item.product.slug}/${item.product.id}`} className='text-dark'>{item.product.name}</Link></p>
                                                     </td>
-                                                <td>Rs. {item.product.price}</td>
+                                                <td>&#8377; {item.product.price}</td>
                                                 <td>
                                                 <button
                                                     name="remove-wishlist"

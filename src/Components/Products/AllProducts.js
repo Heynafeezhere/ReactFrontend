@@ -31,7 +31,7 @@ function AllProducts() {
                 if (data.page_size) setPageSize(data.page_size); // Optional if the API provides `page_size`
             });
     }
-
+    
     // Generate pagination links
     const links = [];
     for (let i = 1; i <= totalPages; i++) {

@@ -19,6 +19,9 @@ function ProductDetail() {
 
     const checkProductInWishlist = async (url) => {
         try {
+            if (!userContext.customerLogin) {
+                return;
+            }
             const urlObj = new URL(url);
     
             const params = {
@@ -108,6 +111,7 @@ function ProductDetail() {
    
 
     const addtoCartHandler = () => {
+        if(productData.status !== 'active') return;
         var cartJson = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
         const addToCartData = {
             'product': {
@@ -204,7 +208,8 @@ function ProductDetail() {
                 </div>
                 <div className="col-8 ">
                     <h3>{productData.name}</h3>
-                    <p className="mt-1 text-muted">Item-Id : {product_id}</p>
+                    {productData.status !== 'active' &&  <p className="text-danger fw-bold">InActive</p>}
+                    <p className="mt-1 text-muted">Item-Id : {productData.item_id}</p>
                     <h5 className="card-name mb-3">Price (₹): {productData.price}</h5>
                     <h5>Product Description</h5>
                     <p>{productData.description}</p>

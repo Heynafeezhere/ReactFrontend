@@ -29,7 +29,7 @@ function VendorOrders() {
                                             <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
                                             <p><Link to="/product/T-shirt/1">DNMX T-shirt</Link></p>
                                         </td>
-                                        <td>Rs.500</td>
+                                        <td>&#8377;500</td>
                                         <td><span className='text-success'><i className="fa fa-check-circle"></i> Completed</span></td>
                                         <td>
                                             <div className="btn-group" role="group">
@@ -50,7 +50,7 @@ function VendorOrders() {
                                             <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
                                             <p><Link to="/product/T-shirt/1">DNMX Shirt</Link></p>
                                         </td>
-                                        <td>Rs.780</td>
+                                        <td>&#8377;780</td>
                                         <td><span className='text-secondary'><i className="fa fa-spin fa-spinner"></i> Proccessing</span></td>
                                         <td>
                                             <div className="btn-group" role="group">
@@ -71,7 +71,7 @@ function VendorOrders() {
                                             <Link to="/product/T-shirt/1"><img src={logo} className="img-thumbnail me-2" width={80} alt="..." /></Link>
                                             <p><Link to="/product/T-shirt/1">DNMX Pant</Link></p>
                                         </td>
-                                        <td>Rs.1079</td>
+                                        <td>&#8377;1079</td>
                                         <td><span className='text-danger'><i className="fa fa-times-circle"></i> Cancelled</span></td>
                                         <td>
                                         <div className="btn-group" role="group">

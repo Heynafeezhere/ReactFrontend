@@ -1,7 +1,27 @@
 import VendorSidebar from './VendorSidebar';
 import logo from '../../logo.svg';
 import { Link } from 'react-router-dom';
+import { VendorContext } from '../../Context';
+import { useContext, useState, useEffect } from 'react';
 function VendorProducts() {
+    const baseUrl = "http://127.0.0.1:8000/api/";
+    const vendorContext = useContext(VendorContext);
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetchData()
+    }, [vendorContext.products]);
+
+    function fetchData() {
+        fetch(`${baseUrl}vendor/${vendorContext.vendorId}/products/`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProducts(data.results);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }
+    console.log(products);
     return (
         <section className="container mt-4">
             <div className="row mt-3">
@@ -31,23 +51,24 @@ function VendorProducts() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <Link to="/product/T-shirt/1">
-                                                <img src={logo} className="img-thumbnail me-2" width={80} alt="..." />
-                                            </Link>
-                                            <p><Link to="/product/T-shirt/1">DNMX T-shirt</Link></p>
-                                        </td>
-                                        <td>Rs.500</td>
-                                        <td>2</td>
-                                        <td><span className='text-success'><i className="fa fa-check-circle"></i> Published</span></td>
-                                        <td>
-                                            <button className='btn btn-success me-2'>View</button>
-                                            <button className='btn btn-info me-2'>Edit</button>
-                                            <button className='btn btn-danger'>Delete</button>
-                                        </td>
-                                    </tr>
+                                    {
+                                        products.map((product,index) => {
+                                            return (
+                                                <tr key={product.id}>
+                                                    <td>{index+1}</td>
+                                                    <td>{product.name}</td>
+                                                    <td>&#8377;.{product.price}</td>
+                                                    <td>{product.stock_quantity}</td>
+                                                    <td>{product.status}</td>
+                                                    <td>
+                                                        <Link to={ `/product/${product.slug}/${product.id}`} className='btn btn-success me-2'>View</Link>
+                                                        <button className='btn btn-info me-2'>Edit</button>
+                                                        <button className='btn btn-danger'>Delete</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
                                 </tbody>
                             </table>
                         </div>
