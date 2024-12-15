@@ -41,11 +41,13 @@ import CustomerList from './Components/Vendor/CustomerList';
 import Reports from './Components/Vendor/Reports';
 import VendorProfile from './Components/Vendor/VendorProfile';
 import VendorChangePassword from './Components/Vendor/VendorChangePassword';
+import AddProductImages from './Components/Vendor/AddProductImages';
 
 import { CartContext } from './Context';
 import { useState } from 'react';
 import UpdateAddress from './Components/Customer/UpdateAddress';
 import VendorLogout from './Components/Vendor/VendorLogout';
+import UpdateProduct from './Components/Vendor/UpdateProduct';
 
 function App() {
   var [cartContext,setCartContext] = useState(JSON.parse(localStorage.getItem('cart')) || []);
@@ -87,6 +89,8 @@ function App() {
         <Route path='/vendor/logout' element={<VendorLogout />} />
         <Route path='/vendor/products' element={<VendorProducts />} />
         <Route path='/vendor/add-product' element={<AddProduct />} />
+        <Route path='/vendor/add-product-image/:product_id' element={<AddProductImages />} />
+        <Route path='/vendor/edit-product/:product_id' element={<UpdateProduct />} />
         <Route path='/vendor/orders' element={<VendorOrders />} />
         <Route path='/vendor/customers' element={<CustomerList />} />
         <Route path='/vendor/reports' element={<Reports />} />

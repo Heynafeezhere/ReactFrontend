@@ -7,7 +7,7 @@ import { useContext } from 'react';
 function AddProduct() {
     const vendorContext = useContext(VendorContext);
     const [categories, setCategories] = useState([]);
-    const [prdouctData, setProductData] = useState({
+    const [productData, setProductData] = useState({
         vendor: vendorContext.vendorId,
         category: '',
         product_name: '',
@@ -48,13 +48,13 @@ function AddProduct() {
         if (name === 'product_name') {
             const slug = value.trim().replace(/\s+/g, '-').toLowerCase();
             setProductData({
-                ...prdouctData,
+                ...productData,
                 [name]: value,
                 slug: slug  // Update the slug
             });
         } else {
             setProductData({
-                ...prdouctData,
+                ...productData,
                 [name]: value
             });
         }
@@ -62,7 +62,7 @@ function AddProduct() {
 
     function fileHandler(event) {
         setProductData({
-            ...prdouctData,
+            ...productData,
             [event.target.name]: event.target.files[0]
         });
     }
@@ -71,15 +71,15 @@ function AddProduct() {
         event.preventDefault();
         const formData = new FormData();
         formData.append('vendor', vendorContext.vendorId);
-        formData.append('category', prdouctData.category);
-        formData.append('name', prdouctData.product_name);
-        formData.append('item_id', prdouctData.product_id);
-        formData.append('slug', prdouctData.slug);  // Append slug
-        formData.append('description', prdouctData.description);
-        formData.append('price', prdouctData.price);
-        formData.append('stock_quantity', prdouctData.stock_quantity);
-        formData.append('tags', prdouctData.tags);
-        formData.append('image', prdouctData.image);
+        formData.append('category', productData.category);
+        formData.append('name', productData.product_name);
+        formData.append('item_id', productData.product_id);
+        formData.append('slug', productData.slug);  // Append slug
+        formData.append('description', productData.description);
+        formData.append('price', productData.price);
+        formData.append('stock_quantity', productData.stock_quantity);
+        formData.append('tags', productData.tags);
+        formData.append('image', productData.image);
 
         axios.post(`${baseUrl}products/add-product/`, formData)
             .then((response) => {
@@ -134,7 +134,7 @@ function AddProduct() {
                                 {/* Category */}
                                 <div className="mb-3">
                                     <label htmlFor="category" className="form-label fw-bold">Category</label>
-                                    <select className="form-select" onChange={inputHandler} value={prdouctData.category} id="category" name="category" required>
+                                    <select className="form-select" onChange={inputHandler} value={productData.category} id="category" name="category" required>
                                         <option className='text-muted' value="0">Select Category</option>
                                         {categories.map((category) => {
                                             return (
@@ -147,37 +147,37 @@ function AddProduct() {
                                 {/* Product Name */}
                                 <div className="mb-3">
                                     <label htmlFor="product_name" className="form-label fw-bold">Product Name</label>
-                                    <input type="text" className="form-control" onChange={inputHandler} value={prdouctData.product_name} id="product_name" name="product_name" maxLength="255" required />
+                                    <input type="text" className="form-control" onChange={inputHandler} value={productData.product_name} id="product_name" name="product_name" maxLength="255" required />
                                 </div>
 
                                 {/* Product ID */}
                                 <div className="mb-3">
                                     <label htmlFor="product_id" className="form-label fw-bold">Product Id</label>
-                                    <input type="text" className="form-control" onChange={inputHandler} value={prdouctData.product_id} id="product_id" name="product_id" maxLength="255" required />
+                                    <input type="text" className="form-control" onChange={inputHandler} value={productData.product_id} id="product_id" name="product_id" maxLength="255" required />
                                 </div>
 
                                 {/* Tags */}
                                 <div className="mb-3">
                                     <label htmlFor="tags" className="form-label fw-bold">Product Tags</label>
-                                    <textarea type="text" className="form-control" onChange={inputHandler} value={prdouctData.tags} id="tags" name="tags" required />
+                                    <textarea type="text" className="form-control" onChange={inputHandler} value={productData.tags} id="tags" name="tags" required />
                                 </div>
 
                                 {/* Description */}
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label fw-bold">Description</label>
-                                    <textarea className="form-control" onChange={inputHandler} value={prdouctData.description} id="description" name="description" rows="4"></textarea>
+                                    <textarea className="form-control" onChange={inputHandler} value={productData.description} id="description" name="description" rows="4"></textarea>
                                 </div>
 
                                 {/* Price */}
                                 <div className="mb-3">
                                     <label htmlFor="price" className="form-label fw-bold">Price (₹)</label>
-                                    <input type="number" className="form-control" onChange={inputHandler} value={prdouctData.price} id="price" name="price" step="0.01" max="99999999.99" required />
+                                    <input type="number" className="form-control" onChange={inputHandler} value={productData.price} id="price" name="price" step="0.01" max="99999999.99" required />
                                 </div>
 
                                 {/* Stock Quantity */}
                                 <div className="mb-3">
                                     <label htmlFor="stock_quantity" className="form-label fw-bold">Stock Quantity</label>
-                                    <input type="number" className="form-control" onChange={inputHandler} value={prdouctData.stock_quantity} id="stock_quantity" name="stock_quantity" min="0" required />
+                                    <input type="number" className="form-control" onChange={inputHandler} value={productData.stock_quantity} id="stock_quantity" name="stock_quantity" min="0" required />
                                 </div>
 
                                 {/* Image */}

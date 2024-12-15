@@ -53,8 +53,22 @@ function Profile() {
         // Update the customer profile data
         const updatedData = new FormData();
         updatedData.append('phone', updatedProfileData.phone);
-        if (updatedProfileData.profile_image) {
+        if (updatedProfileData.profile_image instanceof File) {
             updatedData.append('profile_image', updatedProfileData.profile_image);
+        }
+        else { 
+            fetch(profileData.profile_image)
+                .then(response => response.blob()) // Convert image URL to Blob
+                .then(blob => {
+                    // Create a file from the Blob (optional: specify a filename and mime type)
+                    const file = new File([blob], 'profile_image.jpg', { type: blob.type });
+
+                    // Append the file to FormData
+                    updatedData.append('profile_image', file);
+                })
+                .catch(error => {
+                    console.error('Error converting image URL to file:', error);
+                });
         }
 
         axios.put(`${baseUrl}customer/${userContext.customerId}/`, updatedData, {
@@ -63,7 +77,7 @@ function Profile() {
             }
         })
             .then((response) => {
-                alert('Profile updated successfully');
+                window.location.href = '/customer/profile';
                 console.log('Customer profile updated successfully:', response.data);
                 // Reload the profile data after successful update
                 fetchProfileData();

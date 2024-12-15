@@ -62,7 +62,7 @@ function VendorProducts() {
                                                     <td>{product.status}</td>
                                                     <td>
                                                         <Link to={ `/product/${product.slug}/${product.id}`} className='btn btn-success me-2'>View</Link>
-                                                        <button className='btn btn-info me-2'>Edit</button>
+                                                        <Link to={`/vendor/edit-product/${product.id}`} className='btn btn-info me-2'>Edit</Link>
                                                         <button className='btn btn-danger'>Delete</button>
                                                     </td>
                                                 </tr>
