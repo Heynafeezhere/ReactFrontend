@@ -137,7 +137,7 @@ function UpdateProduct() {
                     // Create a file from the Blob (optional: specify a filename and mime type)
                     const file = new File([blob], 'product_image.jpg', { type: blob.type });
 
-                    // Append the file to FormData
+                    // Append the file to FormData  
                     formData.append('image', file);
                 })
                 .catch(error => {
