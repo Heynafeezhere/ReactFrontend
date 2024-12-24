@@ -1,5 +1,6 @@
 import React from 'react';  
-import { Routes,Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import PrivateRoute from './utils/PrivateRoute';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -72,8 +73,15 @@ function App() {
         {/* customer panel */}
         <Route path='/customer/register' element={<Register />} />
         <Route path='/customer/login' element={<CustomerLogin />} />
-        <Route path='/customer/logout' element={<CustomerLogout  />} />
-        <Route path='/customer/dashboard' element={<Dashboard />} />
+        <Route path='/customer/logout' element={<CustomerLogout />} />
+        
+        {/* Private Route */}
+        <Route path='/customer/dashboard' element={<PrivateRoute />}>
+          <Route path='/customer/dashboard' element={<Dashboard />} />
+        </Route>
+
+        {/* <Route path='/customer/dashboard' element={<Dashboard />} /> */}
+        
         <Route path='/customer/orders' element={<Orders />} />
         <Route path='/customer/wishlist' element={<WishList />} />
         <Route path='/customer/profile' element={<Profile />} />

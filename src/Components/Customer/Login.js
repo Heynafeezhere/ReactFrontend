@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 function CustomerLogin() {
     const baseUrl = "http://127.0.0.1:8000/api/"
     const initialFormData = {
@@ -23,6 +24,7 @@ function CustomerLogin() {
         axios.post(`${baseUrl}customer/login/`, submitFormData).then((response) => {
             setErrorMessage('')
             console.log(response.data)
+            console.log(jwtDecode(response.data.accessToken));
             localStorage.setItem('customer_login', true);
             localStorage.setItem('customer_id', response.data.userId);
             localStorage.setItem('customer_username', response.data.user);
@@ -34,7 +36,7 @@ function CustomerLogin() {
   
     const checkCustomer = localStorage.getItem('customer_login');
     if (checkCustomer) {
-        window.location.href = '/';
+        // window.location.href = '/';
     }
 
     const resetFormData = () => {
